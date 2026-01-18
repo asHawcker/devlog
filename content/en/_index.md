@@ -1,8 +1,8 @@
 ---
 title: "Devlog"
 type: "balloon"
-balloon_img_src: "icons/anurag-y.png"
-balloon_img_src_dark: "icons/anurag-y.png"
+balloon_img_src: "icons/anurag.png"
+balloon_img_src_dark: "icons/anurag.png"
 balloon_circle: true
 balloon_resources: "/about"
 ---
