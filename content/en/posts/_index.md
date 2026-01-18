@@ -1,9 +1,6 @@
-+++
-aliases = ["posts", "articles", "blog", "showcase", "docs"]
-title = "Posts"
-author = "Hugo Authors"
-tags = ["index"]
-type = "postcard"
-+++
+---
+title: "Engineering Log"
+type: "postcard"
+---
 
-Some posts from [hugoBasicExample](https://github.com/gohugoio/hugoBasicExample).
+{{< recent-posts sortby="publishDate" limit=10 >}}

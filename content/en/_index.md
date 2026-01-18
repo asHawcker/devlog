@@ -1,20 +1,22 @@
 ---
-type: 'balloon'
-balloon_img_src: "icons/vase.svg"
-balloon_img_src_dark: "icons/vase_dark.svg"
-balloon_circle: false
+title: "Devlog"
+type: "balloon"
+balloon_img_src: "icons/anurag-y.png"
+balloon_img_src_dark: "icons/anurag-y.png"
+balloon_circle: true
 balloon_resources: "/about"
-description: "Demo site of hugo-theme-monochrome"
-zooming_js: false
-keywords:
-- hugo
-- hugo theme
-- hugo theme monochrome
-- clean
-- responsive
-- programmer-friendly
 ---
 
-{{< icon vendor="feather" name="github" link="https://github.com/kaiiiz/hugo-theme-monochrome" >}}
+# Anurag Sharma
 
-This is the demo of hugo-theme-monochrome.
+{{< icon-group gap="14px">}}
+{{< icon vendor="feather" name="mail" link="mailto:anurag.iiitdm@gmail.com">}}
+{{< icon vendor="feather" name="github" link="https://github.com/ashawcker">}}
+{{< icon vendor="feather" name="linkedin" link="https://www.linkedin.com/in/anurag71">}}
+{{< /icon-group >}}
+Chennai – 600127, India
+
+> **"What I cannot create, I do not understand."**  
+> — Richard Feynman
+
+---
