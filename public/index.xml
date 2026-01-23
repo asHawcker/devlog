@@ -7,6 +7,192 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Absolutely Naive Allocator</title>
+      <link>http://localhost:1313/projects/memory-allocator/absolutely-naive/</link>
+      <pubDate>Fri, 23 Jan 2026 15:04:54 +0530</pubDate>
+      
+      <guid>http://localhost:1313/projects/memory-allocator/absolutely-naive/</guid>
+      <description>&lt;div class=&#34;content-margin&#34;&gt;
+    &lt;ol class=&#34;breadcrumbs&#34;&gt;
+        &lt;li&gt;&lt;a href=&#34;http://localhost:1313/&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/&#34;&gt;Projects&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/memory-allocator/&#34;&gt;Custom Memory Allocators&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/memory-allocator/absolutely-naive/&#34;&gt;Absolutely Naive Allocator&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/div&gt;
+
+
+
+&lt;hr&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;naive-memory-allocator&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Naive Memory Allocator
+  &lt;a href=&#34;#naive-memory-allocator&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;I implemented the basic allocator implementation mentioned in the &lt;a href=&#34;https://arjunsreedharan.org/post/148675821737/memory-allocators-101-write-a-simple-memory&#34;&gt;article&lt;/a&gt; mentioned previously.&lt;/p&gt;
+&lt;p&gt;This is a basic functional allocator. There are a few problems, I can directly figure that we would face.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;freeing is &lt;em&gt;O(n)&lt;/em&gt;. so as we allocate more and more memory, we will take longer to free the blocks.&lt;/li&gt;
+&lt;li&gt;incase all blocks except the last one are freed and then we free the last one, programbreak is only moved till the end of this last block only.&lt;/li&gt;
+&lt;li&gt;all the already allocated headers still exist.&lt;/li&gt;
+&lt;li&gt;two consecutive free headers may be sufficient together but not alone, but they are checked seperately so none will be allocated and program break needs to be extended.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;malloc-implementation&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;malloc() implementation
+  &lt;a href=&#34;#malloc-implementation&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div id=&#34;emgithub_1&#34; class=&#34;emgithub-container&#34;&gt;
+    &lt;div class=&#34;emgithub-code&#34;&gt;
+        &lt;div class=&#34;emgithub-loading&#34;&gt;
+            &lt;svg role=&#34;status&#34; class=&#34;mr-2 w-8 h-8 text-gray-200 animate-spin fill-gray-600&#34; viewBox=&#34;0 0 100 101&#34; fill=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+                &lt;path d=&#34;M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z&#34; fill=&#34;currentColor&#34;/&gt;
+                &lt;path d=&#34;M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z&#34; fill=&#34;currentFill&#34;/&gt;
+            &lt;/svg&gt;
+        &lt;/div&gt;
+        &lt;pre style=&#34;tab-size: 8&#34; class=&#34;emgithub-pre line-numbers loading&#34; data-start=&#34;30&#34; &gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;emgithub-toolbar&#34;&gt;
+        &lt;a target=&#34;_blank&#34; href=&#34;https://github.com/asHawcker/custom-memory-allocators/blob/main/absolutely-naive-allocator/alloc.c#L30-L61&#34;&gt;absolutely-naive-allocator/alloc.c&lt;/a&gt;
+        &lt;a target=&#34;_blank&#34; href=&#34;https://cdn.jsdelivr.net/gh/asHawcker/custom-memory-allocators@main/absolutely-naive-allocator/alloc.c&#34;&gt;view raw&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script defer src=&#39;http://localhost:1313/js/emgithub.js?raw_file_url=https%3a%2f%2fcdn.jsdelivr.net%2fgh%2fasHawcker%2fcustom-memory-allocators%40main%2fabsolutely-naive-allocator%2falloc.c&amp;lang=c&amp;line_begin=30&amp;line_end=61&amp;id=emgithub_1&#39; integrity=&#34;&#34;&gt;&lt;/script&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;free-implementation&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;free() implementation
+  &lt;a href=&#34;#free-implementation&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div id=&#34;emgithub_2&#34; class=&#34;emgithub-container&#34;&gt;
+    &lt;div class=&#34;emgithub-code&#34;&gt;
+        &lt;div class=&#34;emgithub-loading&#34;&gt;
+            &lt;svg role=&#34;status&#34; class=&#34;mr-2 w-8 h-8 text-gray-200 animate-spin fill-gray-600&#34; viewBox=&#34;0 0 100 101&#34; fill=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+                &lt;path d=&#34;M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z&#34; fill=&#34;currentColor&#34;/&gt;
+                &lt;path d=&#34;M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z&#34; fill=&#34;currentFill&#34;/&gt;
+            &lt;/svg&gt;
+        &lt;/div&gt;
+        &lt;pre style=&#34;tab-size: 8&#34; class=&#34;emgithub-pre line-numbers loading&#34; data-start=&#34;63&#34; &gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;emgithub-toolbar&#34;&gt;
+        &lt;a target=&#34;_blank&#34; href=&#34;https://github.com/asHawcker/custom-memory-allocators/blob/main/absolutely-naive-allocator/alloc.c#L63-L81&#34;&gt;absolutely-naive-allocator/alloc.c&lt;/a&gt;
+        &lt;a target=&#34;_blank&#34; href=&#34;https://cdn.jsdelivr.net/gh/asHawcker/custom-memory-allocators@main/absolutely-naive-allocator/alloc.c&#34;&gt;view raw&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script defer src=&#39;http://localhost:1313/js/emgithub.js?raw_file_url=https%3a%2f%2fcdn.jsdelivr.net%2fgh%2fasHawcker%2fcustom-memory-allocators%40main%2fabsolutely-naive-allocator%2falloc.c&amp;lang=c&amp;line_begin=63&amp;line_end=81&amp;id=emgithub_2&#39; integrity=&#34;&#34;&gt;&lt;/script&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;conclusion&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Conclusion
+  &lt;a href=&#34;#conclusion&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Now proceeding to an implicit free list allocator&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Journey - JudgeME | Day 1</title>
       <link>http://localhost:1313/projects/judgeme/journey-d1/</link>
       <pubDate>Tue, 13 Jan 2026 23:07:42 +0530</pubDate>
@@ -123,17 +309,50 @@ registers) before it begins loading the raw memory data.&lt;/p&gt;</description>
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;journey&#34; --&gt;
 
-&lt;h1&gt;Journey&lt;/h1&gt;
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Journey
+  &lt;a href=&#34;#journey&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
 
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;day-2&#34; --&gt;
 
-&lt;h2&gt;Day 2&lt;/h2&gt;
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Day 2
+  &lt;a href=&#34;#day-2&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
 
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;setting-up-chesscom&#34; --&gt;
 
-&lt;h3&gt;Setting up Chess.com&lt;/h3&gt;
+&lt;h3 class=&#34;header-anchor-wrapper&#34;&gt;Setting up Chess.com
+  &lt;a href=&#34;#setting-up-chesscom&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h3&gt;
 
 &lt;p&gt;This was simpler than Github as no login was required here and since the entire workflow was set-up. Things went on pretty smooth.
 Just simple api request to fetch the user data and the gemini API worked the same.&lt;/p&gt;</description>
@@ -157,39 +376,23 @@ Just simple api request to fetch the user data and the gemini API worked the sam
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;implementation-details&#34; --&gt;
 
-&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Implementation Details
-  &lt;a href=&#34;#implementation-details&#34; class=&#34;header-anchor-link&#34;&gt;
-&lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
-    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
-    stroke-linejoin=&#34;round&#34;&gt;
-    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
-&lt;/svg&gt;
-
-&lt;/a&gt;
-&lt;/h1&gt;
+&lt;h1&gt;Implementation Details&lt;/h1&gt;
 
 &lt;p&gt;This section details the specific code modifications required to implement the checkpointing
 feature.&lt;/p&gt;
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;system-call-registration&#34; --&gt;
 
-&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;System Call Registration
-  &lt;a href=&#34;#system-call-registration&#34; class=&#34;header-anchor-link&#34;&gt;
-&lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
-    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
-    stroke-linejoin=&#34;round&#34;&gt;
-    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
-&lt;/svg&gt;
-
-&lt;/a&gt;
-&lt;/h2&gt;
+&lt;h2&gt;System Call Registration&lt;/h2&gt;
 
 &lt;p&gt;To expose the new functionality to user space, new system calls were registered in the standard
-xv6 interface files.&lt;/p&gt;</description>
+xv6 interface files.&lt;/p&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;header-modifications&#34; --&gt;
+
+&lt;h3&gt;Header Modifications&lt;/h3&gt;
+
+&lt;p&gt;In syscall.h, unique numbers assigned to the new calls:&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -210,15 +413,23 @@ xv6 interface files.&lt;/p&gt;</description>
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;deployment-day&#34; --&gt;
 
-&lt;h1&gt;Deployment Day&lt;/h1&gt;
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Deployment Day
+  &lt;a href=&#34;#deployment-day&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;Deployment is painful&amp;rdquo; - &lt;em&gt;Anurag Sharma&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;I started deployment on &lt;em&gt;Render&lt;/em&gt; as I was already familiar with the process and their Free Tier is pretty generous, especially if I am not expecting much traffic. :/&lt;/p&gt;
-&lt;p&gt;I deployed the backend and then tested with my localhost frontend if the requests are reaching the backend successfully.&lt;/p&gt;
-&lt;p&gt;Then I moved on to deploying the frontend and the things were working fine &lt;em&gt;(spoiler: they were not)&lt;/em&gt;
-I tested with chess.com and leetcode and the responses were fine.&lt;/p&gt;</description>
+&lt;p&gt;I started deployment on &lt;em&gt;Render&lt;/em&gt; as I was already familiar with the process and their Free Tier is pretty generous, especially if I am not expecting much traffic. :/&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -239,38 +450,27 @@ I tested with chess.com and leetcode and the responses were fine.&lt;/p&gt;</des
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;usage-manual&#34; --&gt;
 
-&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Usage Manual
-  &lt;a href=&#34;#usage-manual&#34; class=&#34;header-anchor-link&#34;&gt;
-&lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
-    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
-    stroke-linejoin=&#34;round&#34;&gt;
-    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
-&lt;/svg&gt;
-
-&lt;/a&gt;
-&lt;/h1&gt;
+&lt;h1&gt;Usage Manual&lt;/h1&gt;
 
 &lt;p&gt;This section provides instructions on how to use the implemented system calls in user-space
 programs.&lt;/p&gt;
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;creating-a-checkpoint&#34; --&gt;
 
-&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Creating a Checkpoint
-  &lt;a href=&#34;#creating-a-checkpoint&#34; class=&#34;header-anchor-link&#34;&gt;
-&lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
-    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
-    stroke-linejoin=&#34;round&#34;&gt;
-    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
-&lt;/svg&gt;
+&lt;h2&gt;Creating a Checkpoint&lt;/h2&gt;
 
-&lt;/a&gt;
-&lt;/h2&gt;
+&lt;p&gt;Use the &lt;em&gt;checkpoint(int pid, char *filename)&lt;/em&gt; system call.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;pid&lt;/strong&gt;: The Process ID of the target process to save. Use getpid() for self-checkpointing.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;filename&lt;/strong&gt;: The name of the file to be created (e.g., ”backup.img”).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Returns&lt;/strong&gt;: 0 on success, -1 on failure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;restoring-a-process&#34; --&gt;
 
-&lt;p&gt;Use the &lt;em&gt;checkpoint(int pid, char *filename)&lt;/em&gt; system call.&lt;/p&gt;</description>
+&lt;h2&gt;Restoring a Process&lt;/h2&gt;
+
+&lt;p&gt;Use the &lt;em&gt;restart(char *filename)&lt;/em&gt; system call.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -291,36 +491,14 @@ programs.&lt;/p&gt;
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;challenges-faced&#34; --&gt;
 
-&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Challenges Faced
-  &lt;a href=&#34;#challenges-faced&#34; class=&#34;header-anchor-link&#34;&gt;
-&lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
-    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
-    stroke-linejoin=&#34;round&#34;&gt;
-    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
-&lt;/svg&gt;
-
-&lt;/a&gt;
-&lt;/h1&gt;
+&lt;h1&gt;Challenges Faced&lt;/h1&gt;
 
 &lt;p&gt;The development of this feature involved overcoming several technical hurdles specific to the
 xv6 kernel architecture.&lt;/p&gt;
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;file-system-transaction-limits&#34; --&gt;
 
-&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;File System Transaction Limits
-  &lt;a href=&#34;#file-system-transaction-limits&#34; class=&#34;header-anchor-link&#34;&gt;
-&lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
-    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
-    stroke-linejoin=&#34;round&#34;&gt;
-    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
-&lt;/svg&gt;
-
-&lt;/a&gt;
-&lt;/h2&gt;
+&lt;h2&gt;File System Transaction Limits&lt;/h2&gt;
 
 &lt;p&gt;The most significant issue was the “transaction too big” kernel panic error. The xv6 journaling
 system has a fixed log size. I initially attempting to write the entire process memory which

@@ -25,7 +25,7 @@ The main goal I picked up this project is to understand the memory allocation on
 
 ## Kickstart
 
-I start by trying to clear up the my understanding and get into further detail on how memory allocators work and what types of those exist. I was able to get the basic idea from this [article](https://arjunsreedharan.org/post/148675821737/memory-allocators-101-write-a-simple-memory). It exlains the basic working of the allocator very well.
+I start by trying to clear up the my understanding and get into further detail on how memory allocators work and what types of those exist. I was able to get the basic idea from this [article](https://arjunsreedharan.org/post/148675821737/memory-allocators-101-write-a-simple-memory). It explains the basic working of the allocator very well.
 
 Now, I looked into what other approaches are used in real-world software, and I came across different types of them. Here is a short overview.
 
@@ -40,7 +40,7 @@ Now, I looked into what other approaches are used in real-world software, and I 
 | Slab          | Easy (if fixed size)      | Instant          | Instant          | Zero            | Kernel Objects / Games             |
 
 1. **Implicit Free List (The "Naive" Approach)**
-   This is similar to the article you mentioned above.
+   This is similar to the article mentioned above.
    The blocks form a list just by being adjacent in memory. To find a free block, you start at the beginning of the heap and jump from header to header (using the size field) until you find one with allocated == 0. It is the absolute simplest to implement.
 
 2. **Segregated Free Lists (The "Bucket" Approach)**
