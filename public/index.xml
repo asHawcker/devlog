@@ -292,6 +292,40 @@ registers) before it begins loading the raw memory data.&lt;/p&gt;</description>
     </item>
     
     <item>
+      <title>Implicit Freelist Allocator</title>
+      <link>http://localhost:1313/projects/memory-allocator/implicit-freelist/</link>
+      <pubDate>Sun, 25 Jan 2026 09:45:19 +0530</pubDate>
+      
+      <guid>http://localhost:1313/projects/memory-allocator/implicit-freelist/</guid>
+      <description>&lt;div class=&#34;content-margin&#34;&gt;
+    &lt;ol class=&#34;breadcrumbs&#34;&gt;
+        &lt;li&gt;&lt;a href=&#34;http://localhost:1313/&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/&#34;&gt;Projects&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/memory-allocator/&#34;&gt;Custom Memory Allocators&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/memory-allocator/implicit-freelist/&#34;&gt;Implicit Freelist Allocator&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/div&gt;
+
+
+
+&lt;hr&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;why-implicit&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Why &amp;ldquo;Implicit&amp;rdquo;?
+  &lt;a href=&#34;#why-implicit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;We don&amp;rsquo;t store pointers to the next free block. The list is implied by the size in the header. To find a free block, we must visit every block (allocated or free) sequentially until we find one that fits.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Journey - JudgeME | Day 2</title>
       <link>http://localhost:1313/projects/judgeme/journey-d2/</link>
       <pubDate>Wed, 14 Jan 2026 23:34:21 +0530</pubDate>
@@ -396,6 +430,41 @@ xv6 interface files.&lt;/p&gt;
     </item>
     
     <item>
+      <title>Explicit Freelist Allocator</title>
+      <link>http://localhost:1313/projects/memory-allocator/explicit-freelist/</link>
+      <pubDate>Sun, 25 Jan 2026 09:45:27 +0530</pubDate>
+      
+      <guid>http://localhost:1313/projects/memory-allocator/explicit-freelist/</guid>
+      <description>&lt;div class=&#34;content-margin&#34;&gt;
+    &lt;ol class=&#34;breadcrumbs&#34;&gt;
+        &lt;li&gt;&lt;a href=&#34;http://localhost:1313/&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/&#34;&gt;Projects&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/memory-allocator/&#34;&gt;Custom Memory Allocators&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;/&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://localhost:1313/projects/memory-allocator/explicit-freelist/&#34;&gt;Explicit Freelist Allocator&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/div&gt;
+
+
+
+&lt;hr&gt;
+&lt;p&gt;Please read the &lt;a href=&#34;../implicit-freelist&#34;&gt;Implicit Freelist Allocator&lt;/a&gt; first.&lt;/p&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;why-upgrade-to-explicit&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Why Upgrade to Explicit?
+  &lt;a href=&#34;#why-upgrade-to-explicit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;The Implicit List Bottleneck: In the implicite freelist allocator, find&lt;em&gt;fit loops through every single block in the heap (allocated or free) to find a free one. Time Complexity: _O(N)&lt;/em&gt; where &lt;em&gt;N&lt;/em&gt; is the total number of heap blocks. So if we have 10GB of data allocated in tiny chunks, malloc will have to scan millions of headers just to find one free slot. This is unacceptably slow.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Deployment - JudgeME | Day 3</title>
       <link>http://localhost:1313/projects/judgeme/journey-d3-deployment/</link>
       <pubDate>Fri, 16 Jan 2026 23:51:26 +0530</pubDate>
@@ -491,14 +560,36 @@ programs.&lt;/p&gt;
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;challenges-faced&#34; --&gt;
 
-&lt;h1&gt;Challenges Faced&lt;/h1&gt;
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Challenges Faced
+  &lt;a href=&#34;#challenges-faced&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
 
 &lt;p&gt;The development of this feature involved overcoming several technical hurdles specific to the
 xv6 kernel architecture.&lt;/p&gt;
 &lt;!-- end-chunk --&gt;
 &lt;!-- begin-chunk data-anchor=&#34;file-system-transaction-limits&#34; --&gt;
 
-&lt;h2&gt;File System Transaction Limits&lt;/h2&gt;
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;File System Transaction Limits
+  &lt;a href=&#34;#file-system-transaction-limits&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
 
 &lt;p&gt;The most significant issue was the “transaction too big” kernel panic error. The xv6 journaling
 system has a fixed log size. I initially attempting to write the entire process memory which
